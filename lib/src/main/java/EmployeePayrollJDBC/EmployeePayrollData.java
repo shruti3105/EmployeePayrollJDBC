@@ -5,9 +5,8 @@ import java.time.LocalDate;
 public class EmployeePayrollData {
     private int employeeId;
     private String employeeName;
-    private double salary;
+    double salary;
     public LocalDate startDate;
-
     public EmployeePayrollData() {
     }
 
