@@ -9,10 +9,10 @@ public class DBDemo {
     public static void main(String[] args) {
         String jdbcURL = "jdbc:mysql://localhost:3306/payroll_service";
         String userName = "root";
-        String password = "shr@31";
+        String password = "Shruti@3105";
         Connection connection;
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             System.out.println("Driver loaded");
         } catch (ClassNotFoundException e) {
             throw new IllegalStateException("Cannot find the driver in the classpath");
