@@ -89,6 +89,10 @@ public class EmployeePayrollService {
             new FileIOService().writeData(employeeList);
         }
     }
+    
+    public void addEmployeeToPayroll(String name, double salary,LocalDate startDate,String gender) {
+    	employeePayrollList.add(employeePayrollDBService.addEmployeeToPlayroll(name,salary,startDate,gender);
+    }
 
     public long countEnteries(IOService ioType) {
         if (ioType.equals(IOService.FILE_IO))
