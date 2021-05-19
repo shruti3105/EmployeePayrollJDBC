@@ -3,14 +3,16 @@ package EmployeePayrollJDBC;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class EmployeePayrollDBService {
 	
 	private static EmployeePayrollDBService employeePayrollDBService;
     private PreparedStatement employeePayrollDataStatement;
 
-    private EmployeePayrollDBService() {
+    EmployeePayrollDBService() {
     }
 
     public static EmployeePayrollDBService getInstance(){
@@ -87,6 +89,23 @@ public class EmployeePayrollDBService {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+    }
+    
+    public Map<String, Double> readAverageSalaryByGender() throws DBException {
+        String sql="select gender,avg(salary) as avg_salary from employee_payroll group by gender;";
+        Map<String,Double> genderToAverageSalary=new HashMap<>();
+        try(Connection connection=this.getConnection()){
+            Statement statement=connection.createStatement();
+            ResultSet resultSet=statement.executeQuery(sql);
+            while (resultSet.next()){
+                String gender=resultSet.getString("gender");
+                double avg_salary=resultSet.getDouble("avg_salary");
+                genderToAverageSalary.put(gender,avg_salary);
+            }
+        } catch (SQLException throwables) {
+            throw new DBException("Connection is Failed", DBException.ExceptionType.CONNECTION_FAIL);
+        }
+        return genderToAverageSalary;
     }
 
     public int updateEmployeeData(String name, double salary) {

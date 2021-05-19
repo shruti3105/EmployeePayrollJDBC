@@ -1,7 +1,9 @@
 package EmployeePayrollJDBC;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class EmployeePayrollService {
@@ -72,6 +74,12 @@ public class EmployeePayrollService {
             this.employeeList = new FileIOService().readData();
         }
     }
+    
+    public Map<String, Double> averageSalaryByGender(IOService ioService) throws DBException {
+        if (ioService.equals(IOService.DB_IO))
+            return employeePayrollDBService.readAvgSalaryByGender();
+        return null;
+    }
 
     public void writeEmployeeData(IOService ioType) {
         if (ioType.equals(IOService.CONSOLE_IO)) {
@@ -91,4 +99,10 @@ public class EmployeePayrollService {
     public void printEmployeePayrollData() {
         new FileIOService().printEmployeePayrolls();
     }
+
+	public List<EmployeePayrollData> readEmployeeDataWithGivenDateRange(IOService dbIo, LocalDate startDate,
+			LocalDate endDate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
